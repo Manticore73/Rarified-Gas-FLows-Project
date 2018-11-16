@@ -1,0 +1,189 @@
+// ************************************************************************* //
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  3.0.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+convertToMeters 1e-3;
+
+vertices
+(
+    	(0 -102.5 0)	//0
+	(100 -102.5 0)	//1
+	(100 -2.5 0)	//2
+	(0 -2.5	0)	//3
+	(0 -102.5 1)	//4
+	(100 -102.5 1)	//5
+	(100 -2.5 1)	//6
+	(0 -2.5	1)	//7
+
+ 	( 120 -102.5 0) //8
+   	(120 -2.5 0)	//9
+    	( 120 -102.5 1) //10
+    	(120 -2.5 1)	//11
+
+    	(-60 -102.5 0)	//12
+    	(-60 -2.5 0)	//13
+    	(-60 -102.5 1)	//14
+    	(-60 -2.5 1)	//15
+
+    	(-60 2.5 0)	//16
+    	(0 2.5 0)	//17
+    	(-60 2.5 1)	//18
+    	(0 2.5 1)	//19
+	
+    	(100 2.5 0)	//20
+    	(120 2.5 0)	//21
+    	(100 2.5 1)	//22
+    	(120 2.5 1)	//23
+
+    	(-60 102.5 0)	//24
+    	(0 102.5 0)	//25
+    	(-60 102.5 1)	//26
+    	(0 102.5 1)	//27
+
+    	(100 102.5 0)	//28
+    	(100 102.5 1)	//29
+
+    	(120 102.5 0)	//30
+   	(120 102.5 1)	//31	
+);	
+
+blocks
+(
+    hex (0 1 2 3 4 5 6 7) (200 200 2) 	//1
+    simpleGrading
+    ( 
+    	1			// x-direction expansion ratio
+    	(
+    		(1 1 0.1)	
+	)
+    	1			// z-direction expansion ratio	
+    )
+    hex (1 8 9 2 5 10 11 6) (40 200 2) 	//2
+    simpleGrading
+    ( 
+
+    	1			// x-direction expansion ratio
+    	(
+    		(1 1 0.1)	
+	)
+    	1			// z-direction expansion ratio	
+    )	
+    hex (12 0 3 13 14 4 7 15) (120 200 2) //3
+    simpleGrading
+    ( 
+
+    	1			// x-direction expansion ratio
+    	(
+    		(1 1 0.1)	
+	)
+    	1			// z-direction expansion ratio	
+    )
+    hex (13 3 17 16 15 7 19 18) (120 50 2) simpleGrading (1 1 1)	//4
+    hex (2 9 21 20 6 11 23 22) (40 50 2) simpleGrading (1 1 1)	//5
+    hex (16 17 25 24 18 19 27 26) (120 200 2)	//6
+    simpleGrading
+    ( 
+
+    	1			// x-direction expansion ratio
+    	(
+    		(1 1 10)	
+	)
+    	1			// z-direction expansion ratio	
+    )
+    hex (17 20 28 25 19 22 29 27) (200 200 2) //7
+    simpleGrading
+    ( 
+
+    	1			// x-direction expansion ratio
+    	(
+    		(1 1 10)	
+	)
+    	1			// z-direction expansion ratio	
+    )
+    hex (20 21 30 28 22 23 31 29) (40 200 2) //8
+    simpleGrading
+    ( 
+
+    	1			// x-direction expansion ratio
+    	(
+    		(1 1 10)	
+	)
+    	1			// z-direction expansion ratio	
+    )
+);
+
+edges
+(
+);
+
+boundary
+(
+    plate
+    {
+        type wall;
+        faces
+        (
+            (3 17 19 7)
+            (3 7 6 2)
+            (17 20 22 19)
+            (2 6 22 20)
+        );
+    }
+
+    inlet
+    {
+        type patch;
+        faces
+        (
+           (12 13 15 14)
+           (13 16 18 15)
+           (16 24 26 18)
+           (12 14 4 0)
+           (0 4 5 1)
+           (1 5 10 8)
+           (24 25 27 26)
+           (25 28 29 27)
+           (28 30 31 29)
+        );
+    }
+
+    Outlet
+    {
+        type patch;
+        faces
+       (
+	   (8 10 11 9)
+           (9 11 23 21)
+           (21 23 31 30)
+       );
+    }
+
+    frontAndBack
+    {
+        type empty;
+        faces
+        (
+            (0 1 2 3)
+       	    (4 5 6 7)
+        );
+    }
+);
+
+mergePatchPairs
+(
+);
+
+// ************************************************************************* //
