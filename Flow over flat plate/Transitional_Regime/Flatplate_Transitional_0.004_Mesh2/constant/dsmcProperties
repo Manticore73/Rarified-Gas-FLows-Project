@@ -1,0 +1,74 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  3.0.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      dsmcProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+// General Properties
+// ~~~~~~~~~~~~~~~~~~
+
+nEquivalentParticles            4.08163e5;
+
+
+// Wall Interaction Model
+// ~~~~~~~~~~~~~~~~~~~~~~
+
+WallInteractionModel            MaxwellianThermal;
+
+
+// Binary Collision Model
+// ~~~~~~~~~~~~~~~~~~~~~~
+
+BinaryCollisionModel            LarsenBorgnakkeVariableHardSphere;
+
+LarsenBorgnakkeVariableHardSphereCoeffs
+{
+    Tref                        273;
+    relaxationCollisionNumber   5.0;
+}
+
+
+// Inflow Boundary Model
+// ~~~~~~~~~~~~~~~~~~~~~
+
+InflowBoundaryModel             FreeStream;
+
+FreeStreamCoeffs
+{
+    numberDensities
+    {
+        Ar      1.0e17;
+    };
+}
+
+
+// Molecular species
+// ~~~~~~~~~~~~~~~~~
+
+typeIdList                      (Ar);
+
+moleculeProperties
+{
+    Ar
+    {
+        mass                            66.3e-27;
+        diameter                        4.17e-10;
+        internalDegreesOfFreedom        0;
+        omega                           0.81;
+    }
+}
+
+
+// ************************************************************************* //
