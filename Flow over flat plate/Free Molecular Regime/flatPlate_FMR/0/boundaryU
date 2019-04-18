@@ -1,0 +1,46 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+|  \\    /   O peration     | Version:  3.0.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volVectorField;
+    object      boundaryU;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 1 -1 0 0 0 0];
+
+internalField   uniform (0 0 0);
+
+boundaryField
+{
+    outlet
+    {
+	type            inletOutlet;
+        inletValue      uniform (0 0 0);
+        value           uniform (25 -15 0);
+    }
+    inlet
+    {
+	type            fixedValue;
+        value           uniform (30.583 -17.657 0);
+    }
+
+    wall
+    {
+        type            noSlip;
+    }
+
+    frontAndBack
+    {
+        type            empty;
+      //value           uniform 300;//
+    }
+}
+
+// ************************************************************************* //
